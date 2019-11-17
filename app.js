@@ -1,16 +1,23 @@
-const nameInput = document.getElementById('name');
-const messageTextArea = document.getElementById('message');
 
-const focusHandler = (e)=>{
-  e.target.className = 'highlight';
-};
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
-const blurHandler = (e)=>{
-  e.target.className = '';
-};
+const app = express();
 
-nameInput.addEventListener("focus", focusHandler);
-nameInput.addEventListener("blur", blurHandler);
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(cookieParser());
+app.use('/static', express.static('public'));
 
-messageTextArea.addEventListener("focus",focusHandler);
-messageTextArea.addEventListener("blur", blurHandler);
+app.set('view engine', 'pug');
+
+const mainRoute = require("./routes/index");
+const profileRoute = require("./routes/profile");
+
+app.use("/", mainRoute);
+app.use("/profile", profileRoute);
+
+app.listen(3000,()=>{
+  console.log("App is running on localhost:3000");
+});
+

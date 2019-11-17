@@ -1,0 +1,14 @@
+extends layout.pug
+block content
+  form(action='/profile', method='post')
+    p
+      label Name: 
+      input#name(type='text', name='username')
+    p
+      label Tell us something about yourself 
+      textarea#message(name='message', cols='30', rows='10')
+    input#submit(type='submit', name='submit', value='Send Message')
+    script(src='static/external.js')
+
+
+
